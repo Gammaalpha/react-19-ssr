@@ -6,7 +6,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "build": "npm run clean & webpack --config webpack.server.js & webpack --config webpack.client.js",
     "start": "nodemon build/server.bundle.js",
-    "start:dev": "nodemon src/server.index.js",
+    "start:dev": "nodemon src/server.index.ts",
     "dev:build": "concurrently \"webpack --watch --config webpack.server.js\" \"webpack --watch --config webpack.client.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

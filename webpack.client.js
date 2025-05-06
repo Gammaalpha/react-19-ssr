@@ -50,7 +50,7 @@ module.exports = {
     plugins: [
         new CopyWebpackPlugin({
             patterns: [
-                { from: "public" },
+                // { from: "public" }, // don't include index.html from public with current SSR setup
                 { from: "assets" }
             ]
         }),
