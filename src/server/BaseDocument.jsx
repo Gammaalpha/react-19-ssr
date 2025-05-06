@@ -1,5 +1,6 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
+// eslint-disable-next-line
 export const BaseDocument = ({ children }) => {
   return (
     <html>

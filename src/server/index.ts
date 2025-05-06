@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import path from "path";
 
 const app = express();
@@ -9,7 +9,7 @@ import { render } from "./render";
 app.use(express.static(path.resolve(__dirname, "../build")));
 app.use(express.static(path.resolve(__dirname, "../assets")));
 
-app.get("/", (_req: any, res: any) => {
+app.get("/", (_req: Request, res: Response) => {
   render(res);
 });
 
