@@ -1,2 +1,14 @@
+
+# Node Modules
 node_modules
+
+# Build folder
 build
+
+# Logs
+*.log
+
+
+# Environment files
+.env
+env.sh
