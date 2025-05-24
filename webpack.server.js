@@ -14,21 +14,26 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/i,
-                loader: "babel-loader"
+                loader: "babel-loader",
             },
             // tsx
             {
                 test: /\.(ts|tsx)$/,
                 loader: "ts-loader",
-                exclude: /node_modules/,
+                exclude: [/node_modules/],
+            },
+            {
+                test: /\.scss$/,
+                use: 'null-loader', // stub out SCSS on the server
             },
         ]
     },
     externalsPresets: { node: true },
-    externals: {
-        express: 'commonjs express' // example: avoid bundling express
-    },
-    // resolve: {
-    //     extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
-    // }
+    externals: [nodeExternals(), 'commonjs express'], // Prevent bundling node_modules
+    resolve: {
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+        alias: {
+            '@client': false, // Prevent accidental client imports
+        },
+    }
 }

@@ -1,8 +1,9 @@
 import React from "react";
+import "../styles/App.module.scss";
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <h1>Hello, SSR with Express and React!</h1>
     </div>
   );
