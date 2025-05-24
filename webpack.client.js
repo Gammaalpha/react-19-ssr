@@ -14,7 +14,8 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/i,
-                loader: "babel-loader"
+                loader: "babel-loader",
+                // include: path.resolve(__dirname, 'src/client'), // Only include client code
             },
             // tsx
             {
@@ -26,6 +27,7 @@ module.exports = {
                     }
                 },
                 exclude: /node_modules/,
+                include: path.resolve(__dirname, 'src/client'), // Only include client code
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -39,6 +41,26 @@ module.exports = {
                 ],
                 include: /\.module\.scss$/
             },
+            // SCSS Modules
+            // {
+            //     test: /\.module\.scss$/,
+            //     use: [
+            //         'style-loader', // Injects styles into DOM
+            //         {
+            //             loader: 'css-loader',
+            //             options: {
+            //                 modules: true,
+            //             },
+            //         },
+            //         'sass-loader', // Compiles Sass to CSS
+            //     ],
+            // },
+            // Global SCSS (non-module)
+            // {
+            //     test: /\.scss$/,
+            //     exclude: /\.module\.scss$/,
+            //     use: ['style-loader', 'css-loader', 'sass-loader'],
+            // },
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg)$/, // to import images and fonts
                 loader: "url-loader",
@@ -54,5 +76,11 @@ module.exports = {
                 { from: "assets" }
             ]
         }),
-    ]
+    ],
+    resolve: {
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+        alias: {
+            '@server': false, // Prevent accidental server imports
+        },
+    }
 }

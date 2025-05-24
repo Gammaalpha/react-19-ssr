@@ -14,21 +14,28 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/i,
-                loader: "babel-loader"
+                loader: "babel-loader",
+                // exclude: path.resolve(__dirname, 'src/client'), // Only include server code
+                // include: path.resolve(__dirname, 'src/server'), // Only include server code
             },
             // tsx
             {
                 test: /\.(ts|tsx)$/,
                 loader: "ts-loader",
-                exclude: /node_modules/,
+                exclude: [/node_modules/],
+                // include: path.resolve(__dirname, './src/server'), // Only include server code
             },
         ]
     },
     externalsPresets: { node: true },
-    externals: {
-        express: 'commonjs express' // example: avoid bundling express
-    },
-    // resolve: {
-    //     extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
-    // }
+    // externals: {
+    //     express: 'commonjs express' // example: avoid bundling express
+    // },
+    externals: [nodeExternals()], // Prevent bundling node_modules
+    resolve: {
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+        alias: {
+            '@client': false, // Prevent accidental client imports
+        },
+    }
 }

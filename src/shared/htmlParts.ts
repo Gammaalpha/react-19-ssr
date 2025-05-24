@@ -1,0 +1,88 @@
+// HTML template parts
+export const htmlStart = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>React SSR JWT App</title>
+      <style>
+        body {
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          background-color: #f5f5f5;
+        }
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+        }
+        .form-container {
+          background: white;
+          padding: 30px;
+          border-radius: 8px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          max-width: 400px;
+          margin: 50px auto;
+        }
+        .form-group {
+          margin-bottom: 20px;
+        }
+        label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: 500;
+        }
+        input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 16px;
+        }
+        button {
+          width: 100%;
+          padding: 12px;
+          background: #007bff;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        button:hover {
+          background: #0056b3;
+        }
+        .error {
+          color: #dc3545;
+          margin-top: 10px;
+        }
+        .success {
+          color: #28a745;
+          margin-top: 10px;
+        }
+        .nav {
+          background: white;
+          padding: 15px 20px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .nav button {
+          width: auto;
+          padding: 8px 16px;
+          background: #dc3545;
+        }
+        .nav button:hover {
+          background: #c82333;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="root">`;
+
+export const htmlEnd = `</div>
+    </body>
+    </html>`;
