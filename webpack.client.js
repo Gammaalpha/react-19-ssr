@@ -15,7 +15,7 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/i,
                 loader: "babel-loader",
-                // include: path.resolve(__dirname, 'src/client'), // Only include client code
+                include: path.resolve(__dirname, 'src/client'), // Only include client code
             },
             // tsx
             {
@@ -30,41 +30,34 @@ module.exports = {
                 include: path.resolve(__dirname, 'src/client'), // Only include client code
             },
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.module\.s[ac]ss$/,
                 use: [
                     // Creates `style` nodes from JS strings
                     "style-loader",
                     // Translates CSS into CommonJS
-                    "css-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: false
+                        }
+                    },
                     // Compiles Sass to CSS
                     "sass-loader"
                 ],
-                include: /\.module\.scss$/
             },
-            // SCSS Modules
-            // {
-            //     test: /\.module\.scss$/,
-            //     use: [
-            //         'style-loader', // Injects styles into DOM
-            //         {
-            //             loader: 'css-loader',
-            //             options: {
-            //                 modules: true,
-            //             },
-            //         },
-            //         'sass-loader', // Compiles Sass to CSS
-            //     ],
-            // },
-            // Global SCSS (non-module)
-            // {
-            //     test: /\.scss$/,
-            //     exclude: /\.module\.scss$/,
-            //     use: ['style-loader', 'css-loader', 'sass-loader'],
-            // },
+            {
+                test: /\.s[ac]ss$/i,
+                exclude: /\.module\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg)$/, // to import images and fonts
                 loader: "url-loader",
                 options: { limit: false },
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                loader: 'asset/resource'
             },
             { test: /\.css$/, use: ["style-loader", "css-loader"] }
         ]

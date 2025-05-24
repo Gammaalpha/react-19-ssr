@@ -15,23 +15,21 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/i,
                 loader: "babel-loader",
-                // exclude: path.resolve(__dirname, 'src/client'), // Only include server code
-                // include: path.resolve(__dirname, 'src/server'), // Only include server code
             },
             // tsx
             {
                 test: /\.(ts|tsx)$/,
                 loader: "ts-loader",
                 exclude: [/node_modules/],
-                // include: path.resolve(__dirname, './src/server'), // Only include server code
+            },
+            {
+                test: /\.scss$/,
+                use: 'null-loader', // stub out SCSS on the server
             },
         ]
     },
     externalsPresets: { node: true },
-    // externals: {
-    //     express: 'commonjs express' // example: avoid bundling express
-    // },
-    externals: [nodeExternals()], // Prevent bundling node_modules
+    externals: [nodeExternals(), 'commonjs', 'express'], // Prevent bundling node_modules
     resolve: {
         extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
         alias: {
