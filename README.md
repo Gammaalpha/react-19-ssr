@@ -39,7 +39,8 @@ USE mytestdatabse;
 CLIENT_URL=http://localhost:3000
 
 # Database Configuration
-export DB_HOST='localhost:3306'
+export DB_HOST='localhost'
+export DB_PORT='3306'
 export DB_USER='root'
 export DB_PASSWORD='your-password-here'
 export DB_NAME='mytestdatabase'

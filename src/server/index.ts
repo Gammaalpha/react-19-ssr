@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 
 // SSR Routes
-app.get("*", (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response) => {
   const initialState = {
     auth: {
       isAuthenticated: false,
