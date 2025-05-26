@@ -29,7 +29,7 @@ module.exports = {
         ]
     },
     externalsPresets: { node: true },
-    externals: [nodeExternals(), 'commonjs express'], // Prevent bundling node_modules
+    externals: [nodeExternals(), 'commonjs', 'express'], // Prevent bundling node_modules
     resolve: {
         extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
         alias: {

@@ -1,25 +1,37 @@
 import React from "react";
 import { renderToPipeableStream } from "react-dom/server";
 import App from "../client/components/App";
-import { BaseDocument } from "./BaseDocument";
+import { StaticRouter } from "react-router-dom";
+import { htmlEnd, htmlStart } from "../shared/htmlParts";
 
-export const render = (res) => {
+export const render = (req, res, context, initialState) => {
+  res.write(htmlStart)
   const { pipe, abort } = renderToPipeableStream(
-    <BaseDocument>
-      <App />
-    </BaseDocument>,
+    React.createElement(StaticRouter, { location: req.url, context }, React.createElement(App)),
     {
       bootstrapScripts: ["client.bundle.js"],
+      bootstrapScriptContent: `window.__INITIAL_DATA__ = ${JSON.stringify(initialState)}`,
       onShellReady() {
-        res.setHeader("Content-Type", "text/html");
+        if (!res.headersSent) {
+          res.setHeader('content-type', 'text/html');
+          res.status(200);
+        }
         pipe(res);
       },
       onAllReady() {
         console.log("Render: All ready");
+        res.write(htmlEnd);
+        res.end();
+      },
+      onShellError(error) {
+        if (!res.headersSent) {
+          res.status(500).send("Internal server error");
+          res.statusCode = 500;
+        }
+        res.end('<h1>Something went wrong</h1>', err.message || err);
       },
       onError(err) {
-        console.error(err);
-        res.status(500).send("Internal server error");
+        console.error('Shell error: ', err);
         abort();
       },
     }

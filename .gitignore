@@ -12,3 +12,6 @@ build
 # Environment files
 .env
 env.sh
+
+# VSCode specific files
+.vscode
