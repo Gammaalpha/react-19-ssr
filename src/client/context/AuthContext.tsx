@@ -4,7 +4,7 @@ import {
   User,
   LoginCredentials,
   RegisterCredentials,
-} from "../types/auth";
+} from "../models/Interfaces";
 import { IAuthProvider } from "../models/Interfaces";
 
 interface AuthContextType extends AuthState {

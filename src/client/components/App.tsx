@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/App.module.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext";
@@ -7,6 +7,16 @@ import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 
 const App = () => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+  const initialStateObj = window.__INITIAL_DATA__ || {};
+  console.log(initialStateObj);
   return (
     <div className="container">
       <h1>Hello, SSR with Express and React!</h1>
