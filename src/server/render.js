@@ -2,7 +2,6 @@ import React from "react";
 import { renderToPipeableStream } from "react-dom/server";
 import App from "../client/components/App";
 import { StaticRouter } from "react-router-dom";
-// import { htmlEnd, htmlStart } from "../shared/htmlParts";
 import { RenderTemplate } from "./templates/RenderTemplate";
 
 export const render = (req, res, context, initialState) => {
