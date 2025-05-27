@@ -1,23 +1,13 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-
-type TemplateVariables = {
-  pageTitle?: string;
-  pageDescription?: string;
-  isProduction?: boolean;
-};
-
-interface IRenderTemplate {
-  variables?: TemplateVariables;
-  content: ReactNode;
-}
+import { IRenderTemplate } from "../models/RenderTemplate";
 
 export const RenderTemplate = ({
   variables = {},
   content,
 }: IRenderTemplate) => {
   return (
-    <html>
+    <html lang={variables?.lang || "en"}>
       <head>
         <title>{variables.pageTitle || ""}</title>
         <meta charSet="UTF-8" />
@@ -43,6 +33,7 @@ RenderTemplate.propTypes = {
     isProduction: PropTypes.bool,
     pageTitle: PropTypes.string,
     pageDescription: PropTypes.string,
+    lang: PropTypes.string,
   }),
   content: PropTypes.node,
 };
