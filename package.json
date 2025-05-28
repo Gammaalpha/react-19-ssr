@@ -4,10 +4,10 @@
   "scripts": {
     "clean": "rm -rf ./build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "build": "npm run clean & webpack --config webpack.server.js & webpack --config webpack.client.js",
+    "build": "npm run clean & webpack --mode=production --config webpack.server.js & webpack --mode=production --config webpack.client.js",
     "start": "nodemon build/server.bundle.js",
-    "start:dev": "nodemon src/server.index.ts",
-    "build:dev": "concurrently \"webpack --watch --config webpack.server.js\" \"webpack --watch --config webpack.client.js\"",
+    "start:dev": "nodemon build/server.bundle.ts",
+    "build:dev": "concurrently \"webpack --watch --mode=development --config webpack.server.js\" \"webpack --mode=development --watch --config webpack.client.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

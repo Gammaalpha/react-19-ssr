@@ -52,12 +52,14 @@ module.exports = {
             },
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg)$/, // to import images and fonts
-                loader: "url-loader",
-                options: { limit: false },
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/[name][hash][ext][query]', // or 'assets/[name][ext]'
+                },
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                loader: 'asset/resource'
+                type: 'asset/resource'
             },
             { test: /\.css$/, use: ["style-loader", "css-loader"] }
         ]
