@@ -14,4 +14,4 @@ build
 env.sh
 
 # VSCode specific files
-.vscode
+.vscode/settings.json
