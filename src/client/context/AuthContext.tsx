@@ -6,6 +6,7 @@ import {
   RegisterCredentials,
 } from "../models/Interfaces";
 import { IAuthProvider } from "../models/Interfaces";
+import { redirect } from "react-router-dom";
 
 interface AuthContextType extends AuthState {
   login: (credentials: LoginCredentials) => Promise<boolean>;
@@ -70,7 +71,7 @@ const initialState: AuthState = {
 export const AuthProvider = ({ children }: IAuthProvider) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const apiCall = async (url: string, options: RequestInit = {}) => {
+  const apiCall = async (url: string, options: any) => {
     const response = await fetch(`/api${url}`, {
       ...options,
       headers: {
@@ -100,7 +101,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
         type: "LOGIN_SUCCESS",
         payload: { user: data.user, accessToken: data.accessToken },
       });
-
+      redirect("/dashboard");
       return true;
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
@@ -132,7 +133,13 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
   const logout = async () => {
     try {
-      await apiCall("/auth/logout", { method: "POST" });
+      await apiCall("/auth/logout", {
+        method: "POST",
+        headers: {
+          authorization: state.accessToken,
+        },
+      });
+      redirect("/logout");
     } catch (error) {
       console.error("Logout error:", error);
     } finally {

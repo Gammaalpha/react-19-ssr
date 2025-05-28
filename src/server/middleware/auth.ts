@@ -18,19 +18,19 @@ export const authenticateToken = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const authHeaderToken = req.headers["authorization"];
 
-  if (!token) {
+  if (!authHeaderToken) {
     return res.status(401).json({ message: "Access token required" });
   }
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as {
+    const decoded = jwt.verify(authHeaderToken, JWT_SECRET) as {
       id: number;
       email: string;
     };
     const user = await UserModel.findById(decoded.id);
+    console.log("user", user);
 
     if (!user) {
       return res.status(401).json({ message: "User not found" });

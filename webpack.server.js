@@ -9,6 +9,7 @@ module.exports = {
     output: {
         filename: 'server.bundle.js',
         path: path.resolve(__dirname, 'build'),
+        clean: true, // only need it once since this file runs first
     },
     module: {
         rules: [
