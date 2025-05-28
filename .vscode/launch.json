@@ -10,7 +10,7 @@
             "name": "Debug Webpack-Built Server",
             "program": "${workspaceFolder}/build/server.bundle.js",
             "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
+                "${workspaceFolder}/build/*.js"
             ],
             "sourceMaps": true,
             "skipFiles": [
