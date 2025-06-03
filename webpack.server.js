@@ -1,6 +1,7 @@
 const path = require("path");
 const nodeExternals = require('webpack-node-externals');
 const { commonConfig } = require("./webpack.common");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     ...commonConfig,
@@ -9,7 +10,7 @@ module.exports = {
     output: {
         filename: 'server.bundle.js',
         path: path.resolve(__dirname, 'build'),
-        clean: true, // only need it once since this file runs first
+        // clean: true, // only need it once since this file runs first
     },
     module: {
         rules: [
@@ -37,5 +38,8 @@ module.exports = {
             '@client': false, // Prevent accidental client imports
             '@shared': path.resolve(__dirname, 'src/shared')
         },
-    }
+    },
+    plugins: [
+        // new CleanWebpackPlugin(), // Only cleans build/server
+    ]
 }

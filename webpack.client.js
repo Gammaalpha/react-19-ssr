@@ -2,7 +2,7 @@ const path = require("path");
 const { commonConfig } = require("./webpack.common");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fs = require('fs')
-
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     ...commonConfig,
@@ -10,7 +10,7 @@ module.exports = {
     target: "web",
     output: {
         // filename: 'client.bundle.js',
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'build/client'),
         filename: '[name].[contenthash].js', // This allows multiple chunks with different names
         chunkFilename: '[name].[contenthash].js', // For async chunks
     },
@@ -66,6 +66,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(), // Only cleans build/client
         new CopyWebpackPlugin({
             patterns: [
                 // { from: "public" }, // don't include index.html from public with current SSR setup

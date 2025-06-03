@@ -109,7 +109,7 @@ export class ChunksManager {
 
   private formatAssetPath(assetName: string): string {
     const publicPath =
-      this.stats.publicPath === "auto" ? "./" : this.stats.publicPath;
+      this.stats.publicPath === "auto" ? "/client/" : this.stats.publicPath;
     return `${publicPath}${assetName}`;
   }
 
