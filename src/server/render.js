@@ -10,7 +10,7 @@ import fs from 'fs';
 // Load webpack stats
 const loadWebpackStats = () => {
   try {
-    const statsPath = path.resolve(__dirname, '../build/webpack-stats.json');
+    const statsPath = path.resolve(__dirname, './webpack-stats.json');
     const statsContent = fs.readFileSync(statsPath, 'utf8');
     return JSON.parse(statsContent);
   } catch (error) {
