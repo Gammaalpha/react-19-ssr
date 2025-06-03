@@ -1,10 +1,38 @@
 import React from "react";
 import { renderToPipeableStream } from "react-dom/server";
-import App from "../client/components/App";
+import App from "@shared/components/App";
 import { StaticRouter } from "react-router-dom";
 import { RenderTemplate } from "./templates/RenderTemplate";
+import { ChunksManager } from "./utils/chunks-manager";
+import path from 'path';
+import fs from 'fs';
+
+// Load webpack stats
+const loadWebpackStats = () => {
+  try {
+    const statsPath = path.resolve(__dirname, '../build/webpack-stats.json');
+    const statsContent = fs.readFileSync(statsPath, 'utf8');
+    return JSON.parse(statsContent);
+  } catch (error) {
+    console.error('Failed to load webpack stats:', error);
+    return null;
+  }
+};
+
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 export const render = (req, res, context, initialState) => {
+  const stats = loadWebpackStats();
+
+  if (!stats) {
+    res.status(500).send('Failed to load webpack stats');
+    return;
+  }
+
+  const chunksManager = new ChunksManager(stats, isDevelopment)
+
+  const allScriptAssets = chunksManager.getJavaScriptAssets();
+
   const { pipe, abort } = renderToPipeableStream(
     RenderTemplate({
       variables: {
@@ -14,7 +42,7 @@ export const render = (req, res, context, initialState) => {
       content: React.createElement(StaticRouter, { location: req.url, context }, React.createElement(App))
     }),
     {
-      bootstrapScripts: ["client.bundle.js"],
+      bootstrapScripts: allScriptAssets,
       bootstrapScriptContent: `window.__INITIAL_DATA__ = ${JSON.stringify(initialState)}`,
       onShellReady() {
         if (!res.headersSent) {

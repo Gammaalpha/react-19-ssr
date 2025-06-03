@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "../styles/App.module.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "../context/AuthContext";
-import Dashboard from "./Dashboard";
-import LoginForm from "./LoginForm";
-import ProtectedRoute from "./ProtectedRoute";
+import { AuthProvider } from "../../client/context/AuthContext";
+import Dashboard from "../../client/components/Dashboard";
+import LoginForm from "../../client/components/LoginForm";
+import ProtectedRoute from "../../client/components/ProtectedRoute";
 
 const App = () => {
   const [mounted, setMounted] = useState(false);

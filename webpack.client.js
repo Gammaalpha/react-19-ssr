@@ -1,33 +1,34 @@
 const path = require("path");
 const { commonConfig } = require("./webpack.common");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const fs = require('fs')
+
 
 module.exports = {
     ...commonConfig,
     entry: './src/client/index.tsx',
     target: "web",
     output: {
-        filename: 'client.bundle.js',
+        // filename: 'client.bundle.js',
         path: path.resolve(__dirname, 'build'),
+        filename: '[name].[contenthash].js', // This allows multiple chunks with different names
+        chunkFilename: '[name].[contenthash].js', // For async chunks
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/i,
-                loader: "babel-loader",
-                include: path.resolve(__dirname, 'src/client'), // Only include client code
-            },
-            // tsx
-            {
-                test: /\.(ts|tsx)$/,
-                use: {
-                    loader: 'ts-loader',
-                    options: {
-                        transpileOnly: true
-                    }
-                },
+                test: /\.(ts|tsx|js|jsx)$/,
                 exclude: /node_modules/,
-                include: path.resolve(__dirname, 'src/client'), // Only include client code
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env',
+                            ['@babel/preset-react', { runtime: 'automatic' }],
+                            '@babel/preset-typescript'
+                        ]
+                    }
+                }
             },
             {
                 test: /\.module\.s[ac]ss$/,
@@ -71,11 +72,54 @@ module.exports = {
                 { from: "assets" }
             ]
         }),
+        {
+            apply: (compiler) => {
+                compiler.hooks.done.tap('WriteChunksJsonPlugin', (stats) => {
+                    const json = stats.toJson({
+                        modules: false,
+                        chunks: false,
+                        relatedAssets: true,
+                        chunkGroups: true,
+                        entrypoints: false,
+                        assets: false,
+                        warnings: false,
+                        chunkGroupAuxiliary: false
+                    });
+
+                    fs.writeFileSync(
+                        path.resolve(__dirname, 'build/webpack-stats.json'),
+                        JSON.stringify(json, null, 2)
+                    );
+
+                    console.log('[webpack] chunks.json written to build/');
+                });
+            },
+        },
     ],
     resolve: {
         extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
         alias: {
             '@server': false, // Prevent accidental server imports
+            '@shared': path.resolve(__dirname, 'src/shared')
+
         },
-    }
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+                shared: {
+                    name: 'shared',
+                    chunks: 'all',
+                    test: /[\\/]src[\\/]shared[\\/]/,
+                    enforce: true
+                }
+            }
+        }
+    },
 }

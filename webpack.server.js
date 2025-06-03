@@ -35,6 +35,7 @@ module.exports = {
         extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
         alias: {
             '@client': false, // Prevent accidental client imports
+            '@shared': path.resolve(__dirname, 'src/shared')
         },
     }
 }
