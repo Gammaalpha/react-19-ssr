@@ -1,6 +1,7 @@
 import React from "react";
-import { AuthProvider, useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import LoginForm from "./LoginForm";
+import { Loading } from "@carbon/react";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -12,20 +13,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   if (loading) {
     return (
       <div className="container">
-        <div style={{ textAlign: "center", padding: "50px" }}>Loading...</div>
+        <Loading active />
       </div>
     );
   }
 
   if (!isAuthenticated) {
-    return (
-      <AuthProvider>
-        <LoginForm />
-      </AuthProvider>
-    );
+    return <LoginForm />;
   }
 
-  return <AuthProvider>{children}</AuthProvider>;
+  return children;
 };
 
 export default ProtectedRoute;

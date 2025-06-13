@@ -6,7 +6,6 @@ import {
   RegisterCredentials,
 } from "../models/Interfaces";
 import { IAuthProvider } from "../models/Interfaces";
-import { redirect } from "react-router-dom";
 
 interface AuthContextType extends AuthState {
   login: (credentials: LoginCredentials) => Promise<boolean>;
@@ -101,7 +100,6 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
         type: "LOGIN_SUCCESS",
         payload: { user: data.user, accessToken: data.accessToken },
       });
-      redirect("/dashboard");
       return true;
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
@@ -139,7 +137,6 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
           authorization: state.accessToken,
         },
       });
-      redirect("/logout");
     } catch (error) {
       console.error("Logout error:", error);
     } finally {
