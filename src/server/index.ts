@@ -32,8 +32,7 @@ app.use(cookieParser());
 // api auth routes
 app.use("/api/auth", authRoutes);
 
-// SSR Routes
-app.get("/*catchAllParts", (req: Request, res: Response) => {
+const mainPath = (req: Request, res: Response) => {
   const initialState = {
     auth: {
       isAuthenticated: false,
@@ -43,7 +42,11 @@ app.get("/*catchAllParts", (req: Request, res: Response) => {
   const context: ContextModel = {};
 
   render(req, res, context, initialState);
-});
+};
+
+// SSR Routes
+app.get("/", mainPath);
+app.get("/*catchAllParts", mainPath);
 
 app.listen(PORT, () => {
   console.log(`App running at: http://localhost:${PORT}`);
