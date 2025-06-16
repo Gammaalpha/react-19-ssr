@@ -1,0 +1,32 @@
+{
+    "fillInAllFields": "Veuillez remplir tous les champs",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "register": "S'inscrire",
+    "loginState": {
+        "success": "Connexion réussie!",
+        "failed": "Identifiants invalides"
+    },
+    "loginForm": {
+        "email": "Courriel : ",
+        "password": "Mot de passe : "
+    },
+    "registrationState": {
+        "success": "Inscription réussie!",
+        "failed": "Échec de l'inscription"
+    },
+    "processing": "Traitement en cours...",
+    "noAccount": "Vous n'avez pas de compte?",
+    "haveAccount": "Vous avez déjà un compte?",
+    "connectionFailure": "Échec de la connexion",
+    "unableToConnect": "Impossible de se connecter à la base de données. Veuillez contacter les responsables du site",
+    "dashboard": "Tableau de bord",
+    "welcome": "Bienvenue, {{email}}!",
+    "protectedContent": "Contenu protégé",
+    "protectedRouteDesc": "Ceci est une route protégée nécessitant une authentification.",
+    "userId": "ID utilisateur : ",
+    "authInfo": "Informations d'authentification",
+    "authSuccess": "Vous êtes authentifié avec succès!",
+    "jwtTokenSession": "Votre session est protégée avec des jetons JWT",
+    "accessTokenRefreshDesc": "Les jetons d'accès sont automatiquement renouvelés"
+}

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
@@ -32,9 +35,13 @@ const LoginForm = () => {
       : await register({ email, password });
 
     if (!success) {
-      setError(isLogin ? "Invalid credentials" : "Registration failed");
+      setError(
+        isLogin ? t("loginState.failed") : t("registrationState.failed")
+      );
     } else {
-      setSuccess(isLogin ? "Login successful!" : "Registration successful!");
+      setSuccess(
+        isLogin ? t("loginState.sucess") : t("registrationState.success")
+      );
     }
   };
 
@@ -48,10 +55,10 @@ const LoginForm = () => {
     <div className="form-container">
       {databaseConnectionSuccessful ? (
         <>
-          <h2>{isLogin ? "Login" : "Register"}</h2>
+          <h2>{isLogin ? t("login") : t("register")}</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">{t("loginForm.email")}</label>
               <input
                 type="email"
                 id="email"
@@ -61,7 +68,7 @@ const LoginForm = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password:</label>
+              <label htmlFor="password">{t("loginForm.password")}</label>
               <input
                 type="password"
                 id="password"
@@ -71,7 +78,7 @@ const LoginForm = () => {
               />
             </div>
             <button type="submit" disabled={loading}>
-              {loading ? "Processing..." : isLogin ? "Login" : "Register"}
+              {loading ? t("processing") : isLogin ? t("login") : t("register")}
             </button>
           </form>
 
@@ -79,7 +86,7 @@ const LoginForm = () => {
           {success && <div className="success">{success}</div>}
 
           <p style={{ textAlign: "center", marginTop: "20px" }}>
-            {isLogin ? "Don't have an account? " : "Already have an account? "}
+            {isLogin ? t("noAccount") : t("haveAccount")}
             <button
               type="button"
               onClick={() => {
@@ -97,14 +104,14 @@ const LoginForm = () => {
                 width: "auto",
               }}
             >
-              {isLogin ? "Register" : "Login"}
+              {isLogin ? t("login") : t("register")}
             </button>
           </p>
         </>
       ) : (
         <>
-          <h2>Connection Failure</h2>
-          <p>Unable to connec to database. Please contact site owners</p>
+          <h2>{t("Connection Failure")}</h2>
+          <p>{t("unableToConnect")}</p>
         </>
       )}
     </div>

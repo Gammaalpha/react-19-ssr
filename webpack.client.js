@@ -100,9 +100,10 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
         alias: {
-            '@server': false, // Prevent accidental server imports
-            '@shared': path.resolve(__dirname, 'src/shared')
-
+            // '@server': false, // Prevent accidental server imports
+            '@server': path.resolve(__dirname, 'src/server'),
+            '@shared': path.resolve(__dirname, 'src/shared'),
+            '@client': path.resolve(__dirname, 'src/client')
         },
     },
     optimization: {

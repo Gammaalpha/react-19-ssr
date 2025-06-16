@@ -1,0 +1,32 @@
+{
+    "fillInAllFields": "Please fill in all fields",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "loginState": {
+        "success": "Login successful!",
+        "failed": "Invalid credentials"
+    },
+    "loginForm": {
+        "email": "Email: ",
+        "password": "Password: "
+    },
+    "registrationState": {
+        "success": "Registration successful!",
+        "failed": "Registration failed"
+    },
+    "processing": "Processing...",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "connectionFailure": "Connection Failure",
+    "unableToConnect": "Unable to connect to database. Please contact site owners",
+    "dashboard": "Dashboard",
+    "welcome": "Welcome, {{email}}!",
+    "protectedContent": "Protected Content",
+    "protectedRouteDesc": "This is a protected route that requires authentication.",
+    "userId": "User ID: ",
+    "authInfo": "Authentication Info",
+    "authSuccess": "You are successfully authenticated!",
+    "jwtTokenSession": "Your session is protected with JWT tokens",
+    "accessTokenRefreshDesc": "Access tokens are automatically refreshed"
+}
