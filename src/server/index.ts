@@ -33,6 +33,8 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 
 const mainPath = (req: Request, res: Response) => {
+  // use if you want to get the route sub paths
+  // const catchAllParts = req.params.catchAllParts;
   const initialState = {
     auth: {
       isAuthenticated: false,
