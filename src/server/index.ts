@@ -7,14 +7,18 @@ import { render } from "./render";
 import { initDatabase } from "./database/connection";
 import { ContextModel } from "./models/ContextMode";
 import authRoutes from "./routes/authRoutes";
+import { DatabaseStatusType } from "./models/SharedModels";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.static(path.resolve(__dirname, "../build")));
 app.use(express.static(path.resolve(__dirname, "../assets")));
 
+let dbStatus: DatabaseStatusType;
 // initialize db connection
-initDatabase();
+initDatabase().then((result) => {
+  dbStatus = result;
+});
 
 // Middleware
 app.use(
@@ -40,6 +44,7 @@ const mainPath = (req: Request, res: Response) => {
       isAuthenticated: false,
       currentUser: null,
     },
+    dbStatus,
   };
   const context: ContextModel = {};
 
