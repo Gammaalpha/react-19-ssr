@@ -1,9 +1,10 @@
 import { Toggle } from "@carbon/react";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import "../styles/LanguageToggle.module.scss";
 
 const LanguageToggle = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [isToggled, setIsToggled] = useState(
     i18n.language.toLowerCase() === "fr-ca"
   );
@@ -26,7 +27,7 @@ const LanguageToggle = () => {
         onToggle={handleToggle}
         labelA="EN"
         labelB="FR"
-        labelText="Language"
+        labelText={t("language")}
         toggled={isToggled}
       />
     </div>

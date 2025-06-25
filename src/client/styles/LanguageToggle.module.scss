@@ -1,0 +1,14 @@
+@use '@carbon/react/scss/colors';
+
+label[id="language-toggle_label"] {
+
+    .cds--toggle__switch:not(.cds--toggle__switch--checked) {
+        background-color: colors.$blue-50;
+    }
+
+    .cds--toggle__label-text,
+    .cds--toggle__text {
+        color: white;
+
+    }
+}

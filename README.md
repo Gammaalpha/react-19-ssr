@@ -52,6 +52,9 @@ export JWT_REFRESH_SECRET=your-refresh-jwt-secret-key-here
 # Application Configuration
 export NODE_ENV=development
 export PORT=3000
+
+# IBM Telemetry state
+IBM_TELEMETRY_DISABLED='true'
 ```
 
 ### 5. Running the Application

@@ -29,5 +29,6 @@
     "authInfo": "Authentication Info",
     "authSuccess": "You are successfully authenticated!",
     "jwtTokenSession": "Your session is protected with JWT tokens",
-    "accessTokenRefreshDesc": "Access tokens are automatically refreshed"
+    "accessTokenRefreshDesc": "Access tokens are automatically refreshed",
+    "language": "Language"
 }

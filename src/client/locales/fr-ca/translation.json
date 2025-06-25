@@ -28,5 +28,6 @@
     "authInfo": "Informations d'authentification",
     "authSuccess": "Vous êtes authentifié avec succès!",
     "jwtTokenSession": "Votre session est protégée avec des jetons JWT",
-    "accessTokenRefreshDesc": "Les jetons d'accès sont automatiquement renouvelés"
+    "accessTokenRefreshDesc": "Les jetons d'accès sont automatiquement renouvelés",
+    "language": "Langue"
 }

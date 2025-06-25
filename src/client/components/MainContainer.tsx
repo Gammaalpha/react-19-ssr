@@ -4,7 +4,6 @@ import Dashboard from "./Dashboard";
 import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import { AuthProvider } from "@client/context/AuthContext";
-import LanguageToggle from "./LanguageToggle";
 import AppHeader from "./AppHeader";
 
 const MainContainer = () => {
@@ -15,7 +14,6 @@ const MainContainer = () => {
       <AppHeader />
       <main className="container">
         <h1>Hello, SSR with Express and React!</h1>
-        <LanguageToggle />
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<LoginForm />} />
