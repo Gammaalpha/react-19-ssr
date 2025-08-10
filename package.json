@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@carbon/react": "^1.82.1",
+    "@litehex/node-vault": "^1.0.4",
     "@reduxjs/toolkit": "^2.7.0",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
