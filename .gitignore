@@ -15,3 +15,7 @@ env.sh
 
 # VSCode specific files
 .vscode/settings.json
+
+# Vault
+vault_1.20.2_windows_amd64
+vault_1.20.2_windows_amd64/*

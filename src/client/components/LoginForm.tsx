@@ -10,6 +10,8 @@ const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -32,7 +34,7 @@ const LoginForm = () => {
 
     const success = isLogin
       ? await login({ email, password })
-      : await register({ email, password });
+      : await register({ firstName, lastName, email, password });
 
     if (!success) {
       setError(
@@ -57,6 +59,30 @@ const LoginForm = () => {
         <>
           <h2>{isLogin ? t("login") : t("register")}</h2>
           <form onSubmit={handleSubmit}>
+            {!isLogin && (
+              <>
+                <div className="form-group">
+                  <label htmlFor="firstName">{t("loginForm.firstName")}</label>
+                  <input
+                    type="name"
+                    id="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="lastName">{t("loginForm.lastName")}</label>
+                  <input
+                    type="name"
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+              </>
+            )}
             <div className="form-group">
               <label htmlFor="email">{t("loginForm.email")}</label>
               <input
@@ -104,7 +130,7 @@ const LoginForm = () => {
                 width: "auto",
               }}
             >
-              {isLogin ? t("login") : t("register")}
+              {!isLogin ? t("login") : t("register")}
             </button>
           </p>
         </>

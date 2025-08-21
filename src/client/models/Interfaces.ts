@@ -19,6 +19,8 @@ export interface AuthState {
 export interface LoginCredentials {
   email: string;
   password: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 export interface RegisterCredentials extends LoginCredentials {}

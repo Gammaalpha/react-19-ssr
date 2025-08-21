@@ -1,17 +1,36 @@
 import express from "express";
 import {
   generateTokens,
-  verifyRefreshToken,
   authenticateToken,
   AuthRequest,
+  extractLoginContext,
+  refreshAccessToken,
 } from "../middleware/auth";
 import { UserModel } from "../models/User";
 
 const authRoutes = express.Router();
 
+const userNameGenerator = async (firstName: string, lastName: string) => {
+  const userNameResultBase = `${lastName.toLocaleLowerCase()}${
+    firstName.toLocaleLowerCase()[0]
+  }`;
+
+  let userNameResult = userNameResultBase;
+  let userNameResultCount = 0;
+  let existingUserByUserName = await UserModel.findByUserName(userNameResult);
+  while (existingUserByUserName) {
+    existingUserByUserName = await UserModel.findByUserName(userNameResult);
+    if (existingUserByUserName) {
+      userNameResultCount += 1;
+      userNameResult = `${userNameResultBase}${userNameResultCount}`;
+    }
+  }
+  return userNameResult;
+};
+
 authRoutes.post("/register", async (req, res): Promise<any> => {
   try {
-    const { email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     if (!email || !password) {
       return res
@@ -19,20 +38,27 @@ authRoutes.post("/register", async (req, res): Promise<any> => {
         .json({ message: "Email and password are required" });
     }
 
-    const existingUser = await UserModel.findByEmail(email);
-    if (existingUser) {
+    const existingUserByEmail = await UserModel.findByEmail(email);
+
+    if (existingUserByEmail) {
       return res.status(409).json({ message: "User already exists" });
     }
+    const generatedUserName = await userNameGenerator(firstName, lastName);
 
-    const user = await UserModel.create(email, password);
+    const user = await UserModel.create(
+      firstName,
+      lastName,
+      email,
+      password,
+      generatedUserName
+    );
     if (!user) {
       return res.status(500).json({ message: "Failed to create user" });
     }
+    const loginContext = extractLoginContext(req);
+    const { accessToken } = await generateTokens(user, loginContext);
 
-    const { accessToken, refreshToken } = generateTokens(user.id, user.email);
-    await UserModel.updateRefreshToken(user.id, refreshToken);
-
-    res.cookie("refreshToken", refreshToken, {
+    res.cookie("username", user.username, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
@@ -72,10 +98,10 @@ authRoutes.post("/login", async (req, res): Promise<any> => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const { accessToken, refreshToken } = generateTokens(user.id, user.email);
-    await UserModel.updateRefreshToken(user.id, refreshToken);
+    const loginContext = extractLoginContext(req);
+    const { accessToken } = await generateTokens(user, loginContext);
 
-    res.cookie("refreshToken", refreshToken, {
+    res.cookie("username", user.username, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
@@ -94,33 +120,15 @@ authRoutes.post("/login", async (req, res): Promise<any> => {
 
 authRoutes.post("/refresh", async (req, res): Promise<any> => {
   try {
-    const refreshToken = req.cookies.refreshToken;
+    const usernameFromCookie = req.cookies.username;
 
-    if (!refreshToken) {
-      return res.status(401).json({ message: "Refresh token required" });
+    const user = await UserModel.findByUserName(usernameFromCookie);
+    if (!user) {
+      return res
+        .status(403)
+        .json({ message: "Username not found for refresh token" });
     }
-
-    const decoded = verifyRefreshToken(refreshToken);
-    if (!decoded) {
-      return res.status(403).json({ message: "Invalid refresh token" });
-    }
-
-    const user = await UserModel.findById(decoded.id);
-    if (!user || user.refresh_token !== refreshToken) {
-      return res.status(403).json({ message: "Invalid refresh token" });
-    }
-
-    const { accessToken, refreshToken: newRefreshToken } = generateTokens(
-      user.id,
-      user.email
-    );
-    await UserModel.updateRefreshToken(user.id, newRefreshToken);
-
-    res.cookie("refreshToken", newRefreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    const { accessToken } = await refreshAccessToken(user.username);
 
     res.json({
       accessToken,
@@ -135,10 +143,9 @@ authRoutes.post("/refresh", async (req, res): Promise<any> => {
 authRoutes.post("/logout", authenticateToken, async (req: AuthRequest, res) => {
   try {
     if (req.user) {
-      await UserModel.updateRefreshToken(req.user.id, "");
+      await UserModel.logoutUser(req.user.username);
     }
 
-    res.clearCookie("refreshToken");
     res.json({ message: "Logout successful" });
   } catch (error) {
     console.error("Logout error:", error);

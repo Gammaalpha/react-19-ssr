@@ -10,7 +10,9 @@
     },
     "loginForm": {
         "email": "Email: ",
-        "password": "Password: "
+        "password": "Password: ",
+        "firstName": "First Name: ",
+        "lastName": "Last Name: "
     },
     "registrationState": {
         "success": "Registration successful!",
