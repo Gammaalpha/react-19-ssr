@@ -62,9 +62,9 @@ export const authenticateToken = async (
     const decoded = jwt.verify(authHeaderToken, JWT_SECRET) as {
       id: number;
       email: string;
+      username: string;
     };
-    const user = await UserModel.findById(decoded.id);
-    console.log("user", user);
+    const user = await UserModel.findByUserName(decoded.username);
 
     if (!user) {
       return res.status(401).json({ message: "User not found" });
