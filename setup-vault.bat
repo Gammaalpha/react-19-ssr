@@ -33,3 +33,12 @@ vault read auth/approle/role/react-express-app/role-id
 vault write -f auth/approle/role/react-express-app/secret-id
 
 cd ..
+
+@REM List vault secrets
+@REM vault kv list secret/
+
+@REM If your secrets are under secret/data/jwt-tokens/*, then:
+@REM vault kv list secret/jwt-tokens
+
+@REM Read a secret
+@REM vault kv get secret/jwt-tokens/my-app
