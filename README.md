@@ -45,6 +45,13 @@ export DB_USER='root'
 export DB_PASSWORD='your-password-here'
 export DB_NAME='mytestdatabase'
 
+# Vault Secrets (generate and put in secrets during initialization)
+export VAULT_ADDR=http://localhost:8200
+export VAULT_ROLE_ID=your-environment-role-id
+export VAULT_SECRET_ID=your-vault-secret-id
+export VAULT_TOKEN=your-vault-token
+
+
 # JWT Secrets (generate strong secrets for production)
 export JWT_SECRET=your-jwt-secret-key-here
 export JWT_REFRESH_SECRET=your-refresh-jwt-secret-key-here
@@ -54,7 +61,7 @@ export NODE_ENV=development
 export PORT=3000
 
 # IBM Telemetry state
-IBM_TELEMETRY_DISABLED='true'
+export IBM_TELEMETRY_DISABLED='true'
 ```
 
 ### 5. Running the Application

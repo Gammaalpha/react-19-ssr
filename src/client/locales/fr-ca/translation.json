@@ -9,7 +9,9 @@
     },
     "loginForm": {
         "email": "Courriel : ",
-        "password": "Mot de passe : "
+        "password": "Mot de passe : ",
+        "firstName": "Prénom: ",
+        "lastName": "Nom de famille: "
     },
     "registrationState": {
         "success": "Inscription réussie!",
