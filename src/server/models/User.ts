@@ -1,5 +1,5 @@
 import { vaultLogout } from "../middleware/auth";
-import { pool } from "../database/connection";
+import { pool } from "../database/mysql-connection";
 import bcrypt from "bcryptjs";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
 

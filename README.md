@@ -60,6 +60,11 @@ export JWT_REFRESH_SECRET=your-refresh-jwt-secret-key-here
 export NODE_ENV=development
 export PORT=3000
 
+# MONGO DB
+export MONGODB_URI='mongodb://localhost:27017/react-ssr-app'
+# use with mongodb instance with username and password with SSL for enhanced security
+# export MONGODB_URI='mongodb://<username>:<password>@host:27017/mydb?ssl=true'
+
 # IBM Telemetry state
 export IBM_TELEMETRY_DISABLED='true'
 ```

@@ -6,11 +6,14 @@ import session from "express-session";
 import crypto from "crypto";
 
 import { render } from "./render";
-import { initDatabase } from "./database/connection";
+import { initDatabase } from "./database/mysql-connection";
 import { ContextModel } from "./models/ContextMode";
 import authRoutes from "./routes/authRoutes";
 import { DatabaseStatusType } from "./models/SharedModels";
 import rateLimit from "express-rate-limit";
+
+import { connectMongoDB, closeMongoDB } from "./database/mongo-connection";
+import { mongoDBRouter } from "./routes/mongoDbRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -60,6 +63,9 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/auth/login", authLimiter);
 
+// mongodb route
+app.use("/api", mongoDBRouter);
+
 const mainPath = (req: Request, res: Response) => {
   // use if you want to get the route sub paths
   // const catchAllParts = req.params.catchAllParts;
@@ -79,6 +85,24 @@ const mainPath = (req: Request, res: Response) => {
 app.get("/", mainPath);
 app.get("/*catchAllParts", mainPath);
 
-app.listen(PORT, () => {
-  console.log(`App running at: http://localhost:${PORT}`);
+const startServer = async (): Promise<void> => {
+  try {
+    // Connect to mongodb server
+    await connectMongoDB();
+
+    app.listen(PORT, () => {
+      console.log(`App running at: http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server: ", error);
+    process.exit(1);
+  }
+};
+
+process.on("SIGNT", async (): Promise<void> => {
+  console.log("\n Shutting down gracefully...");
+  await closeMongoDB();
+  process.exit(0);
 });
+
+startServer();
