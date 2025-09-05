@@ -24,6 +24,7 @@
     "connectionFailure": "Connection Failure",
     "unableToConnect": "Unable to connect to database. Please contact site owners",
     "dashboard": "Dashboard",
+    "record": "Record",
     "welcome": "Welcome, {{email}}!",
     "protectedContent": "Protected Content",
     "protectedRouteDesc": "This is a protected route that requires authentication.",
