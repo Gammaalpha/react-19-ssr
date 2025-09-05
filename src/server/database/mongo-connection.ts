@@ -1,7 +1,4 @@
-import { MongoClient, Db } from "mongodb";
 import mongoose from "mongoose";
-
-let db: Db | null = null;
 
 export const connectMongoDB = async (): Promise<void> => {
   try {
