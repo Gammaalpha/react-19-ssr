@@ -1,5 +1,5 @@
 import { Toggle } from "@carbon/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "../styles/LanguageToggle.module.scss";
 
@@ -8,17 +8,28 @@ const LanguageToggle = () => {
   const [isToggled, setIsToggled] = useState(
     i18n.language.toLowerCase() === "fr-ca"
   );
+  const langSessionStorage = window.sessionStorage.getItem("react-ssr:lang");
 
-  const handleToggle = (isEnglish: boolean) => {
+  const handleToggle = (isFrench: boolean) => {
     // false for EN, true for FR
-    if (isEnglish) {
+    let lang = "";
+    if (isFrench) {
       i18n.changeLanguage("fr-ca");
+      lang = "fr-ca";
       setIsToggled(true);
     } else {
       i18n.changeLanguage("en-ca");
+      lang = "en-ca";
       setIsToggled(false);
     }
+    if (langSessionStorage !== lang) {
+      window.sessionStorage.setItem("react-ssr:lang", lang);
+    }
   };
+
+  useEffect(() => {
+    handleToggle(langSessionStorage === "fr-ca");
+  }, []);
 
   return (
     <div className="language-toggle">
