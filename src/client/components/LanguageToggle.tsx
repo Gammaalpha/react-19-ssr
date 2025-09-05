@@ -28,7 +28,12 @@ const LanguageToggle = () => {
   };
 
   useEffect(() => {
-    handleToggle(langSessionStorage === "fr-ca");
+    if (
+      i18n.language.toLowerCase() !== langSessionStorage &&
+      langSessionStorage
+    ) {
+      handleToggle(langSessionStorage === "fr-ca");
+    }
   }, []);
 
   return (
