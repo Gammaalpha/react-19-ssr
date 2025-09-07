@@ -10,4 +10,23 @@
         background: #f8f9fa;
         border-radius: 4px;
     }
+
+    .dashboard-line {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: end;
+        margin-bottom: 1rem;
+    }
+
+    .logout-btn {
+        margin-left: 1rem;
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
 }
