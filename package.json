@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@carbon/react": "^1.82.1",
+    "@carbon/react": "^1.90.0",
+    "@carbon/styles": "^1.89.0",
     "@litehex/node-vault": "^1.0.4",
     "@reduxjs/toolkit": "^2.7.0",
     "axios": "^1.11.0",

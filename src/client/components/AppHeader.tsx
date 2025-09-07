@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/AppHeader.module.scss";
 import { useTranslation } from "react-i18next";
 import LanguageToggle from "./LanguageToggle";
@@ -9,11 +9,21 @@ import {
   HeaderContainer,
   HeaderNavigation,
   HeaderMenuItem,
-  Link,
+  HeaderMenuButton,
+  SideNav,
+  SideNavItems,
+  SideNavLink,
+  HeaderName,
 } from "@carbon/react";
 
 const AppHeader = () => {
   const { t } = useTranslation();
+
+  const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
+
+  const handleSideNavToggle = () => {
+    setIsSideNavExpanded(!isSideNavExpanded);
+  };
 
   const navLinks = [
     {
@@ -30,20 +40,50 @@ const AppHeader = () => {
 
   return (
     <HeaderContainer
+      isSideNavExpanded={isSideNavExpanded}
       render={() => (
-        <Header aria-label="react ssr app" className="app-header">
+        <Header aria-label="react ssr app header" className="app-header">
+          <HeaderMenuButton
+            aria-label={isSideNavExpanded ? "Close menu" : "Open menu"}
+            onClick={handleSideNavToggle}
+            isActive={isSideNavExpanded}
+            aria-expanded={isSideNavExpanded}
+          />
           <div className="app-header__title-with-nav">
-            <Link className="app-header__title" href="/">
+            <HeaderName prefix="" href="/" className="app-header__title">
               {t("appHeaderTitle")}
-            </Link>
+            </HeaderName>
             <HeaderNavigation aria-label="react ssr app navigation">
               {navLinks.map((nav) => (
-                <HeaderMenuItem as={NavLink} to={nav.link}>
+                <HeaderMenuItem
+                  key={`nav-${nav.link}`}
+                  as={NavLink}
+                  to={nav.link}
+                >
                   {nav.label}
                 </HeaderMenuItem>
               ))}
             </HeaderNavigation>
           </div>
+          <SideNav
+            aria-label="Side Navigation"
+            expanded={isSideNavExpanded}
+            onSideNavBlur={handleSideNavToggle}
+            href="#main-content"
+            className="site-side-nav-panel"
+          >
+            <SideNavItems>
+              {navLinks.map((nav) => (
+                <SideNavLink
+                  key={`sidenav-${nav.link}`}
+                  as={NavLink}
+                  to={nav.link}
+                >
+                  {nav.label}
+                </SideNavLink>
+              ))}
+            </SideNavItems>
+          </SideNav>
           <LanguageToggle />
         </Header>
       )}
