@@ -21,7 +21,6 @@ const RecordInput: React.FC = () => {
       ...formInfo.current,
       [key]: value,
     };
-    console.log(formInfo.current);
   };
 
   const handleSubmit = () => {};

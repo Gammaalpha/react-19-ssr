@@ -23,7 +23,7 @@
     "connectionFailure": "Échec de la connexion",
     "unableToConnect": "Impossible de se connecter à la base de données. Veuillez contacter les responsables du site",
     "dashboard": "Tableau de bord",
-    "record": "Dossier",
+    "record": "Dossiers",
     "welcome": "Bienvenue, {{email}}!",
     "protectedContent": "Contenu protégé",
     "protectedRouteDesc": "Ceci est une route protégée nécessitant une authentification.",

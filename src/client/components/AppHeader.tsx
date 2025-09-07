@@ -33,8 +33,8 @@ const AppHeader = () => {
     },
     {
       id: "record",
-      label: t("record"),
-      link: "/record",
+      label: t("records"),
+      link: "/records",
     },
   ];
 
