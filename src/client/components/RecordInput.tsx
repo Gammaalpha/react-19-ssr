@@ -7,10 +7,19 @@ import {
   Button,
   Dropdown,
 } from "@carbon/react";
+import { useAppDispatch, useAppSelector } from "@client/storeHooks";
+import { Record } from "@server/models/Record";
 import React, { useRef } from "react";
 // import { useTranslation } from "react-i18next";
 
-const RecordInput: React.FC = () => {
+interface RecordsProps {
+  recordItems?: Record[];
+}
+
+const RecordInput: React.FC<RecordsProps> = () => {
+  const recordItems = useAppSelector((state: any) => state.record.recordItems);
+  const dispatch = useAppDispatch();
+
   const formInfo = useRef({
     description: "",
     type: "",
@@ -37,18 +46,12 @@ const RecordInput: React.FC = () => {
         <Stack gap={7}>
           <Dropdown
             id="records-dropdown"
-            items={[]}
+            items={recordItems}
+            disabled={recordItems.length === 0}
             titleText="Records list"
             label="Select a record from the list"
           />
-
-          <TextInput
-            id="description"
-            labelText="Description"
-            onChange={(e) =>
-              handleFormInput("description", e.currentTarget.value)
-            }
-          />
+          {/* Date picker */}
           <RadioButtonGroup
             // defaultSelected="new"
             legendText="Entry Type"
@@ -58,6 +61,13 @@ const RecordInput: React.FC = () => {
             <RadioButton id="new" labelText="New" value="NEW" />
             <RadioButton id="updated" labelText="Updated" value="UPDATED" />
           </RadioButtonGroup>
+          <TextInput
+            id="description"
+            labelText="Description"
+            onChange={(e) =>
+              handleFormInput("description", e.currentTarget.value)
+            }
+          />
           <Button>Submit</Button>
         </Stack>
       </FormGroup>

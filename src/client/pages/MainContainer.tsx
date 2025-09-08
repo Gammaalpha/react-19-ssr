@@ -4,8 +4,8 @@ import LoginForm from "../components/LoginForm";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { AuthProvider } from "@client/context/AuthContext";
 import AppHeader from "../components/AppHeader";
-import RecordInput from "./RecordInput";
-import Dashboard from "./Dashboard";
+import RecordInput from "../components/RecordInput";
+import Dashboard from "../components/Dashboard";
 
 const MainContainer = () => {
   // const initialStateObj = window.__INITIAL_DATA__ || {};

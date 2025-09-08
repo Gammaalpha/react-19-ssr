@@ -14,7 +14,7 @@
     "@carbon/react": "^1.90.0",
     "@carbon/styles": "^1.89.0",
     "@litehex/node-vault": "^1.0.4",
-    "@reduxjs/toolkit": "^2.7.0",
+    "@reduxjs/toolkit": "^2.9.0",
     "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
