@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import recordReducer from "./record/recordSlice";
+import recordReducer from "./record/singleRecordSlice";
 
 const store = configureStore({
   reducer: {

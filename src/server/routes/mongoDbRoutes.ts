@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { ObjectId } from "mongodb";
 import { Record } from "../models/Record";
 import { RecordModel } from "../models/Record";
+import crypto from "crypto";
 
 const mongoDBRouter = Router();
 
@@ -10,7 +11,29 @@ mongoDBRouter.get(
   "/records",
   async (_req: Request, res: Response): Promise<void> => {
     try {
-      const records = await RecordModel.find().sort({ createdAt: -1 });
+      const records = await RecordModel.aggregate([
+        {
+          $sort: { createdAt: -1 }, // 1 for ascending, -1 for descending
+        },
+        {
+          $group: {
+            _id: "$recordId",
+            createdAt: { $first: "$createdAt" },
+            description: { $first: "$description" },
+          },
+        },
+        {
+          $project: {
+            recordId: "$_id",
+            description: 1,
+            createdAt: 1,
+            _id: 0,
+          },
+        },
+        {
+          $sort: { createdAt: 1 }, // 1 for ascending, -1 for descending
+        },
+      ]);
       res.json(records);
     } catch (error) {
       console.error("Error fetching records: ", error);
@@ -21,7 +44,7 @@ mongoDBRouter.get(
 
 // Get one record by id with limit 1
 mongoDBRouter.get(
-  "/record/:recordId",
+  "/records/:recordId",
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { recordId } = req.params;
@@ -47,7 +70,7 @@ mongoDBRouter.get(
 
 // Get all available record history by id
 mongoDBRouter.get(
-  "/record/:recordId/all",
+  "/records/:recordId/all",
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { recordId } = req.params;
@@ -71,12 +94,12 @@ mongoDBRouter.get(
   }
 );
 
-// Add a record
+// Add a record to the records collection
 mongoDBRouter.post(
   "/records",
   async (req: Request, res: Response): Promise<void> => {
     try {
-      const { type, description } = req.body;
+      const { type, description, recordId } = req.body;
       if (!type) {
         res.status(400).json({ error: "type is required" });
         return;
@@ -85,6 +108,7 @@ mongoDBRouter.post(
       const record: Record = {
         type,
         description,
+        recordId: recordId || crypto.randomUUID(),
       };
       const newRecord = new RecordModel(record);
       const savedRecord = await newRecord.save();

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
-import crypto from "crypto";
 
 export type RecordType = "NEW" | "UPDATED";
 
@@ -16,8 +15,6 @@ const recordSchema = new mongoose.Schema({
   recordId: {
     type: String,
     required: [true, "Record ID is required"],
-    default: crypto.randomUUID(),
-    unique: true,
   },
   type: { type: String, required: [true, "Type is required"] },
   description: { type: String },

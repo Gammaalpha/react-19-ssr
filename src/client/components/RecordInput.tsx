@@ -6,69 +6,136 @@ import {
   RadioButton,
   Button,
   Dropdown,
+  ButtonSkeleton,
+  InlineNotification,
 } from "@carbon/react";
+import {
+  addRecord,
+  fetchAllRecords,
+} from "@client/store/record/singleRecordSlice";
 import { useAppDispatch, useAppSelector } from "@client/storeHooks";
 import { Record } from "@server/models/Record";
-import React, { useRef } from "react";
-// import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface RecordsProps {
   recordItems?: Record[];
 }
 
 const RecordInput: React.FC<RecordsProps> = () => {
-  const recordItems = useAppSelector((state: any) => state.record.recordItems);
+  const { t } = useTranslation();
+  const {
+    recordItems = [],
+    loading,
+    error,
+  } = useAppSelector((state: any) => state.record);
   const dispatch = useAppDispatch();
 
-  const formInfo = useRef({
+  const [formInfo, setFormInfo] = useState<any>({
     description: "",
-    type: "",
+    type: "NEW",
   });
 
+  const [selectedRecord, setSelectedRecord] = useState<Record>();
+
   const handleFormInput = (key: string, value: string | number | undefined) => {
-    formInfo.current = {
-      ...formInfo.current,
+    setFormInfo((prev: any) => ({
+      ...prev,
       [key]: value,
-    };
+    }));
   };
 
-  const handleSubmit = () => {};
+  const handleRecordDropdownChange = (data: any) => {
+    setSelectedRecord(data.selectedItem);
+  };
+
+  const handleSubmit = () => {
+    if (formInfo.type === "NEW") {
+      dispatch(addRecord(formInfo));
+    } else if (formInfo.type === "UPDATED" && selectedRecord) {
+      dispatch(
+        addRecord({
+          ...formInfo,
+          recordId: selectedRecord.recordId,
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (formInfo.type === "UPDATED" && recordItems.length === 0) {
+      dispatch(fetchAllRecords());
+    }
+  }, [formInfo]);
+
+  // useEffect(() => {
+  //   console.log(recordItems);
+  // }, [recordItems]);
+
+  useEffect(() => {
+    setFormInfo((prev: any) => ({
+      ...prev,
+      description:
+        selectedRecord && selectedRecord.description
+          ? selectedRecord.description
+          : "",
+    }));
+  }, [selectedRecord]);
+
+  const itemToString = (item: any) => {
+    return `${item.recordId} - ${new Date(item?.createdAt).toLocaleString()}`;
+  };
 
   return (
     <div>
       <FormGroup
         legendId="form-group-1"
-        legendText="Simple mongodb entry system with history"
+        legendText=""
         style={{
           maxWidth: "400px",
         }}
       >
         <Stack gap={7}>
-          <Dropdown
-            id="records-dropdown"
-            items={recordItems}
-            disabled={recordItems.length === 0}
-            titleText="Records list"
-            label="Select a record from the list"
-          />
-          {/* Date picker */}
           <RadioButtonGroup
-            // defaultSelected="new"
-            legendText="Entry Type"
+            defaultSelected="NEW"
+            legendText={t("entryType")}
             name="formgroup-default-radio-button-group"
             onChange={(e) => handleFormInput("type", e)}
           >
             <RadioButton id="new" labelText="New" value="NEW" />
             <RadioButton id="updated" labelText="Updated" value="UPDATED" />
           </RadioButtonGroup>
+          <Dropdown
+            id="records-dropdown"
+            items={recordItems}
+            disabled={recordItems.length === 0 || formInfo.type === "NEW"}
+            titleText={t("recordsList")}
+            label={t("selectRecord")}
+            onChange={handleRecordDropdownChange}
+            itemToString={itemToString}
+          />
+          {/* Date picker */}
           <TextInput
             id="description"
-            labelText="Description"
+            labelText={t("description")}
+            defaultValue={formInfo.description}
             onChange={(e) =>
               handleFormInput("description", e.currentTarget.value)
             }
           />
-          <Button>Submit</Button>
+          {loading ? (
+            <ButtonSkeleton />
+          ) : (
+            <Button onClick={handleSubmit}>{t("submit")}</Button>
+          )}
+          {error && (
+            <InlineNotification
+              onClose={() => {}}
+              onCloseButtonClick={() => {}}
+              title={t("recordSaveError.title")}
+              subtitle={t("recordSaveError.description")}
+            />
+          )}
         </Stack>
       </FormGroup>
     </div>
