@@ -1,5 +1,4 @@
 import { Router, Request, Response } from "express";
-import { ObjectId } from "mongodb";
 import { Record } from "../models/Record";
 import { RecordModel } from "../models/Record";
 import crypto from "crypto";
@@ -48,10 +47,6 @@ mongoDBRouter.get(
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { recordId } = req.params;
-      if (!ObjectId.isValid(recordId)) {
-        res.status(400).json({ error: "Invalid record ID" });
-        return;
-      }
 
       const record = await RecordModel.findOne({ recordId })
         .sort({ createdAt: -1 })
@@ -74,10 +69,6 @@ mongoDBRouter.get(
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { recordId } = req.params;
-      if (!ObjectId.isValid(recordId)) {
-        res.status(400).json({ error: "Invalid record ID" });
-        return;
-      }
 
       const records = await RecordModel.find({ recordId }).sort({
         createdAt: -1,
