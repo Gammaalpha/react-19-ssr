@@ -35,7 +35,7 @@ const MainContainer = () => {
               }
             />
             <Route
-              path="/record"
+              path="/records"
               element={
                 <ProtectedRoute>
                   <RecordInput />

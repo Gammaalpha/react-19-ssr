@@ -32,7 +32,7 @@ const AppHeader = () => {
       link: "/dashboard",
     },
     {
-      id: "record",
+      id: "records",
       label: t("records"),
       link: "/records",
     },
