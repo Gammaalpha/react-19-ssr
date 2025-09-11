@@ -11,6 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@carbon/icons-react": "^11.67.0",
     "@carbon/react": "^1.90.0",
     "@carbon/styles": "^1.89.0",
     "@litehex/node-vault": "^1.0.4",

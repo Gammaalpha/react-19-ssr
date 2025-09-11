@@ -42,5 +42,9 @@
     "recordSaveError": {
         "title": "Erreur rencontrée",
         "description": "Erreur lors de la sauvegarde de l'enregistrement"
-    }
+    },
+    "oldest": "Plus ancien enregistrement",
+    "latest": "Dernier enregistrement",
+    "navigateDateBack": "Deuxième plus ancienne",
+    "navigateDateForward": "Le prochain plus récent"
 }

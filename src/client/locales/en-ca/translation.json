@@ -43,5 +43,9 @@
     "recordSaveError": {
         "title": "Error encountered",
         "description": "Error while saving record"
-    }
+    },
+    "oldest": "Oldest record",
+    "latest": "Latest record",
+    "navigateDateBack": "Next oldest",
+    "navigateDateForward": "Next newest"
 }
