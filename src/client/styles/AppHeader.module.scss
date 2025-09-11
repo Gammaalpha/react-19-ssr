@@ -1,5 +1,10 @@
+@use '@carbon/styles/scss/breakpoint' as *;
+@use '@carbon/styles/scss/colors';
+@use '@carbon/styles/scss/theme';
+
 .app-header {
     position: sticky;
+    min-height: 5rem;
     top: 0;
     left: 0;
     background-color: #282c34;
@@ -13,4 +18,37 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
+    &__title-with-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    &__title {
+        color: colors.$white !important;
+    }
+
+    .cds--side-nav__navigation,
+    .cds--side-nav__overlay.cds--side-nav__overlay-active {
+        margin-top: 1.95rem;
+    }
+
+    @include breakpoint(66rem) {
+        .site-side-nav-panel {
+            display: none;
+        }
+    }
+
+    .cds--side-nav__overlay.cds--side-nav__overlay-active {
+        max-height: 95vh;
+    }
+
+    .cds--header__action.cds--header__menu-trigger.cds--header__menu-toggle.cds--header__menu-toggle__hidden {
+        svg {
+            fill: colors.$white;
+        }
+    }
+
 }

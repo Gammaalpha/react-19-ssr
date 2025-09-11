@@ -1,0 +1,10 @@
+.record-input-form {
+    .date-btn-group {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 1rem;
+        align-items: center;
+    }
+}

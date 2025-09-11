@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "../context/AuthContext";
 import "../styles/Dashboard.module.scss";
 import { useTranslation } from "react-i18next";
+import { Button } from "@carbon/react";
 
 const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -10,11 +11,15 @@ const Dashboard: React.FC = () => {
     <div>
       <div className="nav">
         <h2>{t("dashboard")}</h2>
-        <div>
+        <div className="dashboard-line">
           <span>{t("welcome", { email: user?.email })}</span>
-          <button onClick={logout} style={{ marginLeft: "15px" }}>
+          <Button
+            kind="danger--tertiary"
+            onClick={logout}
+            className="logout-btn"
+          >
             {t("logout")}
-          </button>
+          </Button>
         </div>
       </div>
       <div className="container">

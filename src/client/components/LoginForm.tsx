@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Button } from "@carbon/react";
 
 const LoginForm = () => {
   const { t } = useTranslation();
@@ -103,14 +104,12 @@ const LoginForm = () => {
                 required
               />
             </div>
-            <button type="submit" disabled={loading}>
+            <Button type="submit" kind="primary" disabled={loading}>
               {loading ? t("processing") : isLogin ? t("login") : t("register")}
-            </button>
+            </Button>
           </form>
-
           {error && <div className="error">{error}</div>}
           {success && <div className="success">{success}</div>}
-
           <p style={{ textAlign: "center", marginTop: "20px" }}>
             {isLogin ? t("noAccount") : t("haveAccount")}
             <button

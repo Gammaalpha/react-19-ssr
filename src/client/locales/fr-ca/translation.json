@@ -23,6 +23,7 @@
     "connectionFailure": "Échec de la connexion",
     "unableToConnect": "Impossible de se connecter à la base de données. Veuillez contacter les responsables du site",
     "dashboard": "Tableau de bord",
+    "record": "Dossiers",
     "welcome": "Bienvenue, {{email}}!",
     "protectedContent": "Contenu protégé",
     "protectedRouteDesc": "Ceci est une route protégée nécessitant une authentification.",
@@ -31,5 +32,19 @@
     "authSuccess": "Vous êtes authentifié avec succès!",
     "jwtTokenSession": "Votre session est protégée avec des jetons JWT",
     "accessTokenRefreshDesc": "Les jetons d'accès sont automatiquement renouvelés",
-    "language": "Langue"
+    "language": "Langue",
+    "description": "Description",
+    "entryType": "Type d'entrée",
+    "recordsList": "Liste des records",
+    "selectRecord": "Sélectionnez un enregistrement dans la liste",
+    "formTitle": "Système d'entrée simple avec historique",
+    "submit": "Soumettre",
+    "recordSaveError": {
+        "title": "Erreur rencontrée",
+        "description": "Erreur lors de la sauvegarde de l'enregistrement"
+    },
+    "oldest": "Plus ancien enregistrement",
+    "latest": "Dernier enregistrement",
+    "navigateDateBack": "Deuxième plus ancienne",
+    "navigateDateForward": "Le prochain plus récent"
 }

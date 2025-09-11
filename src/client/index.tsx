@@ -4,6 +4,8 @@ import "./styles/index.scss";
 import App from "@shared/components/App";
 import { BrowserRouter } from "react-router-dom";
 import "./i18n";
+import store from "./store";
+import { Provider } from "react-redux";
 
 const rootElement = document.getElementById("root");
 
@@ -11,7 +13,9 @@ if (rootElement) {
   hydrateRoot(
     rootElement,
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   );
 } else {

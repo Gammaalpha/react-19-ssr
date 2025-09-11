@@ -24,6 +24,7 @@
     "connectionFailure": "Connection Failure",
     "unableToConnect": "Unable to connect to database. Please contact site owners",
     "dashboard": "Dashboard",
+    "records": "Records",
     "welcome": "Welcome, {{email}}!",
     "protectedContent": "Protected Content",
     "protectedRouteDesc": "This is a protected route that requires authentication.",
@@ -32,5 +33,19 @@
     "authSuccess": "You are successfully authenticated!",
     "jwtTokenSession": "Your session is protected with JWT tokens",
     "accessTokenRefreshDesc": "Access tokens are automatically refreshed",
-    "language": "Language"
+    "language": "Language",
+    "description": "Description",
+    "entryType": "Entry Type",
+    "recordsList": "Records list",
+    "selectRecord": "Select a record from the list",
+    "formTitle": "Simple entry system with history",
+    "submit": "Submit",
+    "recordSaveError": {
+        "title": "Error encountered",
+        "description": "Error while saving record"
+    },
+    "oldest": "Oldest record",
+    "latest": "Latest record",
+    "navigateDateBack": "Next oldest",
+    "navigateDateForward": "Next newest"
 }
