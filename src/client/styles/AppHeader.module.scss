@@ -45,9 +45,11 @@
         max-height: 95vh;
     }
 
-    .cds--header__action.cds--header__menu-trigger.cds--header__menu-toggle.cds--header__menu-toggle__hidden {
-        svg {
-            fill: colors.$white;
+    .header-menu-btn {
+        &.is-closed {
+            svg {
+                fill: colors.$white;
+            }
         }
     }
 

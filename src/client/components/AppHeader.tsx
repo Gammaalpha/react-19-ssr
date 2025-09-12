@@ -15,6 +15,8 @@ import {
   SideNavLink,
   HeaderName,
 } from "@carbon/react";
+import { navLinks } from "@client/pages/routes";
+import classNames from "classnames";
 
 const AppHeader = () => {
   const { t } = useTranslation();
@@ -25,18 +27,9 @@ const AppHeader = () => {
     setIsSideNavExpanded(!isSideNavExpanded);
   };
 
-  const navLinks = [
-    {
-      id: "dashboard",
-      label: t("dashboard"),
-      link: "/dashboard",
-    },
-    {
-      id: "records",
-      label: t("records"),
-      link: "/records",
-    },
-  ];
+  const headerMenuButtonClass = classNames("header-menu-btn", {
+    "is-closed": !isSideNavExpanded,
+  });
 
   return (
     <HeaderContainer
@@ -48,6 +41,7 @@ const AppHeader = () => {
             onClick={handleSideNavToggle}
             isActive={isSideNavExpanded}
             aria-expanded={isSideNavExpanded}
+            className={headerMenuButtonClass}
           />
           <div className="app-header__title-with-nav">
             <HeaderName prefix="" href="/" className="app-header__title">
@@ -56,11 +50,11 @@ const AppHeader = () => {
             <HeaderNavigation aria-label="react ssr app navigation">
               {navLinks.map((nav) => (
                 <HeaderMenuItem
-                  key={`nav-${nav.link}`}
+                  key={`nav-${nav.slug}`}
                   as={NavLink}
-                  to={nav.link}
+                  to={nav.slug}
                 >
-                  {nav.label}
+                  {t(nav.label)}
                 </HeaderMenuItem>
               ))}
             </HeaderNavigation>
@@ -75,11 +69,11 @@ const AppHeader = () => {
             <SideNavItems>
               {navLinks.map((nav) => (
                 <SideNavLink
-                  key={`sidenav-${nav.link}`}
+                  key={`sidenav-${nav.slug}`}
                   as={NavLink}
-                  to={nav.link}
+                  to={nav.slug}
                 >
-                  {nav.label}
+                  {t(nav.label)}
                 </SideNavLink>
               ))}
             </SideNavItems>
