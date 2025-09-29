@@ -59,10 +59,6 @@ const RecordInput: React.FC<RecordsProps> = () => {
     }));
   };
 
-  useEffect(() => {
-    console.log(formInfo);
-  }, [formInfo]);
-
   const handleRecordDropdownChange = (data: any) => {
     setSelectedRecord(data.selectedItem);
     dispatch(fetchRecordsHistory(data.selectedItem.recordId));
