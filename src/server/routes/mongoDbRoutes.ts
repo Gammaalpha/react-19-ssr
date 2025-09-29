@@ -104,7 +104,13 @@ mongoDBRouter.post(
       const newRecord = new RecordModel(record);
       const savedRecord = await newRecord.save();
 
-      res.status(201).json({ _id: savedRecord._id, ...record });
+      res
+        .status(201)
+        .json({
+          _id: savedRecord._id,
+          createdAt: savedRecord.createdAt,
+          ...record,
+        });
     } catch (error) {
       console.error("Error creating record: ", error);
       res.status(500).json({ error: "Failed to create record" });

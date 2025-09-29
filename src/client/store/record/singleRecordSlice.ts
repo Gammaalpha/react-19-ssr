@@ -101,15 +101,15 @@ export const recordsSlice = createSlice({
           const updatedRecordItems = state.recordItems.reduce(
             (acc: Record[], curr: Record) => {
               if (curr.recordId === recordId) {
-                return [...acc, action.payload];
+                return [action.payload, ...acc];
               }
-              return [...acc, curr];
+              return [curr, ...acc];
             },
             []
           );
           state.recordItems = updatedRecordItems;
           // update record history for that item
-          state.recordHistory[action.payload.recordId].push(action.payload);
+          state.recordHistory[action.payload.recordId].unshift(action.payload);
         } else {
           state.recordItems.push(action.payload);
         }

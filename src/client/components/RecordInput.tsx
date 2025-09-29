@@ -116,7 +116,7 @@ const RecordInput: React.FC<RecordsProps> = () => {
     } else if (formInfo.type === "NEW") {
       setFormInfo(initialFormInfo);
     }
-  }, [formInfo]);
+  }, [formInfo.type]);
 
   useEffect(() => {
     if (selectedRecord && recordHistory && !loading) {
@@ -134,10 +134,15 @@ const RecordInput: React.FC<RecordsProps> = () => {
     return `${item.recordId} - ${new Date(item?.createdAt).toLocaleString()}`;
   };
 
-  let descriptionFieldDisabled = false;
+  let descriptionFieldDisabled = true;
   let forwardDisabled = true;
   let backDisabled = false;
-  if (selectedRecord?.recordId && recordHistory[selectedRecord.recordId]) {
+  if (formInfo.type === "NEW") {
+    descriptionFieldDisabled = false;
+  } else if (
+    selectedRecord?.recordId &&
+    recordHistory[selectedRecord.recordId]
+  ) {
     descriptionFieldDisabled = formInfo.selectedIndex > 0;
     forwardDisabled =
       recordHistory[selectedRecord.recordId].length === 1 ||
@@ -168,17 +173,20 @@ const RecordInput: React.FC<RecordsProps> = () => {
             <RadioButton id="new" labelText="New" value="NEW" />
             <RadioButton id="updated" labelText="Updated" value="UPDATED" />
           </RadioButtonGroup>
-          <Dropdown
-            id="records-dropdown"
-            items={recordItems}
-            disabled={recordItems.length === 0 || formInfo.type === "NEW"}
-            titleText={t("recordsList")}
-            label={t("selectRecord")}
-            onChange={handleRecordDropdownChange}
-            itemToString={itemToString}
-          />
+          {formInfo.type === "UPDATED" && (
+            <Dropdown
+              id="records-dropdown"
+              items={recordItems}
+              disabled={recordItems.length === 0}
+              titleText={t("recordsList")}
+              label={t("selectRecord")}
+              onChange={handleRecordDropdownChange}
+              itemToString={itemToString}
+            />
+          )}
           {/* Date picker */}
           {selectedRecord?.recordId &&
+            formInfo.type === "UPDATED" &&
             recordHistory[selectedRecord.recordId] && (
               <div className="date-btn-group">
                 <Button
@@ -221,11 +229,15 @@ const RecordInput: React.FC<RecordsProps> = () => {
             )}
           <TextInput
             id="description"
+            key={`description-${formInfo.selectedIndex}`}
             labelText={t("description")}
-            disabled={descriptionFieldDisabled || false}
+            disabled={descriptionFieldDisabled}
             defaultValue={formInfo.description}
             onChange={(e) =>
-              handleFormInput("description", e.currentTarget.value)
+              handleFormInput(
+                "description",
+                String(e.currentTarget.value).trim()
+              )
             }
           />
           {loading ? (

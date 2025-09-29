@@ -78,7 +78,8 @@ const mainPath = (req: Request, res: Response) => {
       isAuthenticated: false,
       currentUser: null,
     },
-    dbStatus,
+    mySqlDbStatus: dbStatus,
+    mongoDbStatus: isMongoDBConnected,
   };
   const context: ContextModel = {};
 
