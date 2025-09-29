@@ -1,0 +1,28 @@
+@use "ol/ol.css";
+
+.open-maps-container {
+    position: relative;
+
+    .inner-map-container {
+        height: 600px;
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .full-height-width {
+        height: 100%;
+        width: 100%;
+    }
+
+    .map-popup {
+        background: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+}

@@ -47,5 +47,6 @@
     "oldest": "Oldest record",
     "latest": "Latest record",
     "navigateDateBack": "Next oldest",
-    "navigateDateForward": "Next newest"
+    "navigateDateForward": "Next newest",
+    "openMaps": "Open Maps"
 }
