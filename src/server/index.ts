@@ -12,7 +12,11 @@ import authRoutes from "./routes/authRoutes";
 import { DatabaseStatusType } from "./models/SharedModels";
 import rateLimit from "express-rate-limit";
 
-import { connectMongoDB, closeMongoDB } from "./database/mongo-connection";
+import {
+  connectMongoDBWithRetry,
+  isMongoDBConnected,
+  closeMongoDB,
+} from "./database/mongo-connection";
 import { mongoDBRouter } from "./routes/mongoDbRoutes";
 
 const app = express();
@@ -85,10 +89,18 @@ const mainPath = (req: Request, res: Response) => {
 app.get("/", mainPath);
 app.get("/*catchAllParts", mainPath);
 
+// get system health status
+app.get("/health", (_, res) => {
+  res.json({
+    status: "ok",
+    mongoDBConneced: isMongoDBConnected,
+  });
+});
+
 const startServer = async (): Promise<void> => {
   try {
     // Connect to mongodb server
-    await connectMongoDB();
+    await connectMongoDBWithRetry();
 
     app.listen(PORT, () => {
       console.log(`App running at: http://localhost:${PORT}`);

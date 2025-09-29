@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-export const connectMongoDB = async (): Promise<void> => {
+let isMongoDBConnected = false;
+
+const connectMongoDBWithRetry = async (): Promise<void> => {
   try {
     const uri = process.env.MONGODB_URI;
     if (!uri) {
@@ -8,15 +10,18 @@ export const connectMongoDB = async (): Promise<void> => {
     }
 
     await mongoose.connect(uri);
+    isMongoDBConnected = true;
 
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("MongoDB connection error:", error);
-    process.exit(1);
+    isMongoDBConnected = false;
+    // process.exit(1);
+    setTimeout(connectMongoDBWithRetry, 2 * 60 * 1000); // retry in 2min
   }
 };
 
-export const closeMongoDB = async (): Promise<void> => {
+const closeMongoDB = async (): Promise<void> => {
   try {
     await mongoose.connection.close();
     console.log("Disconnected from MongoDB");
@@ -37,3 +42,5 @@ mongoose.connection.on("error", (error) => {
 mongoose.connection.on("disconnected", () => {
   console.log("📡 Mongoose disconnected");
 });
+
+export { connectMongoDBWithRetry, closeMongoDB, isMongoDBConnected };
