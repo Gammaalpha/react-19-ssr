@@ -18,8 +18,8 @@ const LoginForm = () => {
 
   const initialStateObj = window.__INITIAL_DATA__ || {}; // replace with redux after
 
-  const { dbStatus } = initialStateObj;
-  const databaseConnectionSuccessful = dbStatus.status === "SUCCESS";
+  const { mySqlDbStatus } = initialStateObj;
+  const databaseConnectionSuccessful = mySqlDbStatus.status === "SUCCESS";
 
   const { login, register, loading, user } = useAuth();
 

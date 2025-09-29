@@ -56,6 +56,9 @@ export class UserModel {
 
   static async findByUserName(userName: string): Promise<User | null> {
     try {
+      if (!userName) {
+        return null;
+      }
       const [rows] = await pool.execute<RowDataPacket[]>(
         "SELECT * FROM users WHERE username = ?",
         [userName]
@@ -63,7 +66,7 @@ export class UserModel {
 
       return (rows[0] as User) || null;
     } catch (error) {
-      console.error("Error finding user by email:", error);
+      console.error("Error finding user by username:", error);
       return null;
     }
   }
