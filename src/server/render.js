@@ -58,6 +58,7 @@ export const render = (req, res, context, initialState) => {
         if (!res.headersSent) {
           res.status(500).send("Internal server error");
           res.statusCode = 500;
+          return;
         }
         res.send('<!doctype html>')
         res.end('<h1>Something went wrong</h1>', err.message || err);
