@@ -7,11 +7,7 @@ const App = () => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return null;
-  }
-
-  return <MainContainer />;
+  return <>{mounted && <MainContainer />}</>;
 };
 
 export default App;
