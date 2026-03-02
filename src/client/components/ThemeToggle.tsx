@@ -19,7 +19,7 @@ export const ThemeToggle = () => {
         }
         title={theme === "dark" ? "Light mode" : "Dark mode"}
       >
-        {theme === "dark" ? <Light size={15} /> : <Moon size={15} />}
+        {theme === "dark" ? <Light size={16} /> : <Moon size={16} />}
       </IconButton>
     </div>
   );
