@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import {
-  // Link,
   Tab,
   TabList,
   TabPanel,
@@ -9,11 +8,9 @@ import {
   TextArea,
 } from "@carbon/react";
 
-// import "./MarkdownEditor.module.css";
 import styles from "../../styles/MarkdownEditor.module.scss";
 
 import { useCallback } from "react";
-// import { Minimize, Maximize } from "@carbon/icons-react";
 import { EditorFooter } from "./utils/EditorFooter";
 import { EditorToolbar } from "./utils/EditorToolbar";
 import { renderMarkdown } from "./utils/renderMarkdown";
