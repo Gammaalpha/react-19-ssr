@@ -78,7 +78,7 @@
     line-height: 0;
 }
 
-.toolbarBtn:hover:not(:disabled) {
+.toolbarBtn:hover:not:disabled {
     color: var(--gh-text);
     background: rgba(255, 255, 255, 0.08);
 }
@@ -127,13 +127,13 @@
 }
 
 /* ── Tab overrides (Carbon) ── */
-.tabs :global(.cds--tabs__nav) {
+.tabs .cds--tabs__nav {
     background: var(--gh-bg-surface);
     border-bottom: 1px solid var(--gh-border);
     padding-left: 4px;
 }
 
-.tabs :global(.cds--tabs__nav-link) {
+.tabs .cds--tabs__nav-link {
     color: var(--gh-muted) !important;
     border-bottom: 2px solid transparent !important;
     font-size: 14px;
@@ -142,17 +142,17 @@
     background: transparent !important;
 }
 
-.tabs :global(.cds--tabs__nav-link:hover) {
+.tabs .cds--tabs__nav-link:hover {
     color: var(--gh-text) !important;
     background: rgba(255, 255, 255, 0.06) !important;
 }
 
-.tabs :global(.cds--tabs__nav-item--selected .cds--tabs__nav-link) {
+.tabs .cds--tabs__nav-item--selected .cds--tabs__nav-link {
     color: var(--gh-text) !important;
     border-bottom-color: var(--gh-accent) !important;
 }
 
-.tabs :global(.cds--tab-content) {
+.tabs .cds--tab-content {
     padding: 0 !important;
 }
 
@@ -188,7 +188,7 @@
 }
 
 /* ← restore bullets */
-.preview :global(ul) {
+.preview ul {
     align-items: center;
     justify-content: flex-start;
     padding-left: 22px;
@@ -197,23 +197,23 @@
 }
 
 /* ← restore numbers */
-.preview :global(ol) {
+.preview ol {
     padding-left: 22px;
     margin: 6px 0;
     list-style: decimal;
 }
 
 /* ← nested bullets */
-.preview :global(ul ul) {
+.preview ul ul {
     list-style: circle;
 }
 
-.preview :global(h1),
-.preview :global(h2),
-.preview :global(h3),
-.preview :global(h4),
-.preview :global(h5),
-.preview :global(h6) {
+.preview h1,
+.preview h2,
+.preview h3,
+.preview h4,
+.preview h5,
+.preview h6 {
     color: var(--gh-text);
     margin: 18px 0 8px;
     font-weight: 600;
@@ -221,32 +221,32 @@
     padding-bottom: 6px;
 }
 
-.preview :global(h1) {
+.preview h1 {
     font-size: 1.75em;
 }
 
-.preview :global(h2) {
+.preview h2 {
     font-size: 1.4em;
 }
 
-.preview :global(h3) {
+.preview h3 {
     font-size: 1.2em;
 }
 
-.preview :global(p) {
+.preview p {
     margin: 8px 0;
 }
 
-.preview :global(a) {
+.preview a {
     color: var(--gh-link);
     text-decoration: none;
 }
 
-.preview :global(a:hover) {
+.preview a:hover {
     text-decoration: underline;
 }
 
-.preview :global(code) {
+.preview code {
     background: rgba(110, 118, 129, 0.2);
     color: var(--gh-code-fg);
     padding: 2px 6px;
@@ -255,7 +255,7 @@
     font-size: 12px;
 }
 
-.preview :global(pre) {
+.preview pre {
     background: var(--gh-bg-surface);
     border: 1px solid var(--gh-border);
     border-radius: 6px;
@@ -264,70 +264,70 @@
     margin: 12px 0;
 }
 
-.preview :global(pre code) {
+.preview pre code {
     background: none;
     color: var(--gh-text);
     padding: 0;
     font-size: 13px;
 }
 
-.preview :global(blockquote) {
+.preview blockquote {
     border-left: 4px solid #3d444d;
     padding-left: 14px;
     color: var(--gh-muted);
     margin: 12px 0;
 }
 
-.preview :global(hr) {
+.preview hr {
     border: none;
     border-top: 1px solid var(--gh-border);
     margin: 16px 0;
 }
 
-.preview :global(ul),
-.preview :global(ol) {
+.preview ul,
+.preview ol {
     padding-left: 22px;
     margin: 6px 0;
 }
 
-.preview :global(li) {
+.preview li {
     margin: 3px 0;
 }
 
-.preview :global(strong) {
+.preview strong {
     font-weight: 600;
 }
 
-.preview :global(img) {
+.preview img {
     max-width: 100%;
     border-radius: 4px;
 }
 
-.preview :global(input[type="checkbox"]) {
+.preview input[type="checkbox"] {
     margin-right: 4px;
     position: relative;
     top: 2px;
 }
 
-.preview :global(table) {
+.preview table {
     border-collapse: collapse;
     width: 100%;
     margin: 12px 0;
 }
 
-.preview :global(th),
-.preview :global(td) {
+.preview th,
+.preview td {
     border: 1px solid var(--gh-border);
     padding: 6px 12px;
     text-align: left;
 }
 
-.preview :global(th) {
+.preview th {
     background: var(--gh-bg-subtle);
     font-weight: 600;
 }
 
-.preview :global(tr:nth-child(even)) {
+.preview tr:nth-child(even) {
     background: rgba(255, 255, 255, 0.02);
 }
 
@@ -368,7 +368,7 @@
 }
 
 /* ── Carbon Tag overrides ── */
-.footer :global(.cds--tag) {
+.footer .cds--tag {
     background: rgba(110, 118, 129, 0.2) !important;
     color: var(--gh-muted) !important;
     border: none !important;
