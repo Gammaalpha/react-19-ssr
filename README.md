@@ -51,6 +51,11 @@ export VAULT_ROLE_ID=your-environment-role-id
 export VAULT_SECRET_ID=your-vault-secret-id
 export VAULT_TOKEN=your-vault-token
 
+# Vault HCL file content
+path "secret/data/jwt-tokens/\*" {
+    capabilities = ["create", "read", "update", "delete"]
+}
+
 
 # JWT Secrets (generate strong secrets for production)
 export JWT_SECRET=your-jwt-secret-key-here
