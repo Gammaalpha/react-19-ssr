@@ -74,6 +74,19 @@ export MONGODB_URI='mongodb://localhost:27017/react-ssr-app'
 export IBM_TELEMETRY_DISABLED='true'
 ```
 
+### 4a. Container based initialization for vault
+
+To initalize vault run the following command in a linux terminal (use nerdctl if using containerd)
+
+```
+nerdctl run -d \
+  --name vault \
+  -p 8200:8200 \
+  -e VAULT_DEV_ROOT_TOKEN_ID=root \
+  -e VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200 \
+  hashicorp/vault
+```
+
 ### 5. Running the Application
 
 #### Development mode (with hot reload)
